@@ -5,13 +5,8 @@ import '@openzeppelin/contracts/token/ERC721/utils/ERC721Holder.sol';
 import '@openzeppelin/contracts/token/ERC721/IERC721.sol';
 
 contract ContractB is ERC721Holder {
-  IERC721 public token;
-  function deposit(uint tokenId) external {
-    token.safeTransferFrom(msg.sender, address(this), tokenId);
-  }
-  function withdraw(uint tokenId) external {
-    token.safeTransferFrom(address(this), msg.sender, tokenId);
-  }
+  function deposit(uint tokenId) external virtual {}
+  function withdraw(uint tokenId) external virtual {}
 }
 
 contract ContractA is ERC721Holder {
