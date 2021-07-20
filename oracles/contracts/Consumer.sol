@@ -17,6 +17,7 @@ contract Consumer{
         (bool result, uint timestamp, uint data) = oracle.getData(key);
         require(result == true, 'could not get price');
         require(timestamp >= block.timestamp - 2 minutes, 'price too old');
-        // do domething with price
+        // do something with price
+
     }
 }
