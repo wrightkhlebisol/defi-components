@@ -1,5 +1,4 @@
 const CoinGecko = require('coingecko-api');
-const CoinGecko = require('coingecko-api');
 const Oracle = artifacts.require("Oracle.sol");
 
 const POLL_INTERVAL = 5000;
@@ -11,7 +10,8 @@ module.exports = async done => {
 
     while (true) {
         const response = await CoinGeckoClient.coins.fetch('bitcoin', {});
-        let currentPrice = parseFloat(response.data.market_data_current_price.usd);
+
+        let currentPrice = parseFloat(response.data.market_data.current_price.usd);
         currentPrice = parseInt(currentPrice * 100);
         await oracle.updateData(
             web3.utils.soliditySha3('BTC/USD'),
