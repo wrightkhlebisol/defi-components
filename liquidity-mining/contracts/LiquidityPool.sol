@@ -27,7 +27,10 @@ contract LiquidityPool is LpToken{
 
     function withdraw(uint amount) external {
         require(balanceOf(msg.sender) >= amount, 'not enough LP Tokens');
-        
+        _distributeRewards(msg.sender);
+        underlyingToken.transfer(msg.sender, amount);
+        _burn(msg.sender, amount);
+
     }
 
     function _distributeRewards(address beneficiary) internal {
