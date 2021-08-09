@@ -1,10 +1,11 @@
+// SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.7.3;
 
 import '@openzeppelin/contracts/token/ERC20/ERC20.sol';
 import '@openzeppelin/contracts/utils/ReentrancyGuard.sol';
 import './IFlashloanUser.sol';
 
-contract FlashloanProvider {
+contract FlashloanProvider is ReentrancyGuard{
     mapping(address => IERC20) public tokens;
 
     constructor(address[] memory _tokens){
@@ -16,7 +17,7 @@ contract FlashloanProvider {
     function executeFlashloan(
         address callback, uint amount, address _token, bytes memory data
     )
-        external
+        external nonReentrant()
     {
         IERC20 token = tokens[_token];
         uint originalBalance = token.balanceOf(address(this));
